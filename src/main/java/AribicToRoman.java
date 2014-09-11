@@ -5,7 +5,6 @@ import java.util.TreeMap;
 
 public class AribicToRoman {
 
-
 	private static final SortedMap<Integer, String> ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS =
 			new TreeMap<Integer, String>(Collections.reverseOrder()) {{
 		put(1, "I");
@@ -24,18 +23,14 @@ public class AribicToRoman {
 	}};
 	
 	public String convert(int aribic) {
-		return convertAssist(aribic, "");
+        if (aribic == 0)
+            return "";
+
+        int largestRomanSymbolMappingAribicLessThanInput =
+                ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.tailMap(aribic).firstKey();
+
+        return ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.get(largestRomanSymbolMappingAribicLessThanInput) +
+                convert(aribic - largestRomanSymbolMappingAribicLessThanInput);
 	}
 	
-	private String convertAssist(int aribic, String roman) {
-		if (aribic == 0)
-			return roman;
-		else {
-			int largestRomanSymbolMappingAribicLessThanInput = 
-					ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.tailMap(aribic).firstKey();
-			return convertAssist(aribic - largestRomanSymbolMappingAribicLessThanInput, 
-					roman + ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.get(largestRomanSymbolMappingAribicLessThanInput));
-		}
-	}
-
 }
