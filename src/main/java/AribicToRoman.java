@@ -1,12 +1,11 @@
-import java.util.Collections;
-import java.util.SortedMap;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
 
 public class AribicToRoman {
 
-	private static final SortedMap<Integer, String> ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS =
-			new TreeMap<Integer, String>(Collections.reverseOrder()) {{
+	private static final NavigableMap<Integer, String> ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS =
+			new TreeMap<Integer, String>() {{
 		put(1, "I");
 		put(4, "IV");
 		put(5, "V");
@@ -27,7 +26,7 @@ public class AribicToRoman {
             return "";
 
         int largestRomanSymbolMappingAribicLessThanInput =
-                ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.tailMap(aribic).firstKey();
+                ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.floorKey(aribic);
 
         return ALL_ARIBIC_TO_ROMAN_SYMBOL_MAPPINGS.get(largestRomanSymbolMappingAribicLessThanInput) +
                 convert(aribic - largestRomanSymbolMappingAribicLessThanInput);
